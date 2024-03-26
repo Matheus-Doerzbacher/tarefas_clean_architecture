@@ -15,12 +15,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorSchema = ColorScheme.fromSeed(
+      seedColor: Colors.deepPurple,
+    );
+    final colorSchemaDart = ColorScheme.fromSeed(
+      seedColor: Colors.deepPurple,
+      brightness: Brightness.dark,
+    );
+
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+      theme: ThemeData().copyWith(
+        colorScheme: colorSchema,
       ),
+      darkTheme: ThemeData.dark().copyWith(
+        colorScheme: colorSchemaDart,
+      ),
+      themeMode: ThemeMode.system,
       home: const Home(),
     );
   }
