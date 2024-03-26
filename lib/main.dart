@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:tarefas_clean_architecture/core/inject/inject.dart';
 import 'package:tarefas_clean_architecture/layers/tarefas/presentation/ui/pages/tarefa_page.dart';
 import 'firebase_options.dart';
 
 void main() async {
+  Inject.init();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
