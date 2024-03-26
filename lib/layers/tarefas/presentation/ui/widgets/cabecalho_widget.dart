@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class CabecalhoWidget extends StatelessWidget {
   final IconData icon;
   final String titulo;
+  final Color iconeColor;
 
   const CabecalhoWidget({
     super.key,
     required this.icon,
     required this.titulo,
+    required this.iconeColor,
   });
 
   @override
@@ -17,6 +19,7 @@ class CabecalhoWidget extends StatelessWidget {
         Icon(
           icon,
           size: 30,
+          color: iconeColor,
         ),
         const SizedBox(width: 12),
         Text(
