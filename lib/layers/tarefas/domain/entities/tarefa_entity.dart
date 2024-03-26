@@ -2,15 +2,27 @@ import 'dart:math';
 
 class TarefaEntity {
   final String id;
-  final String descricao;
+  String descricao;
   final DateTime data;
-  final bool realizado;
+  bool realizado;
 
   TarefaEntity({
     required this.descricao,
     required this.data,
-    required this.realizado,
-  }) : id = generateRandomId();
+  })  : id = generateRandomId(),
+        realizado = false;
+
+  void alterarRealizado() {
+    realizado = !realizado;
+  }
+
+  void alterarDescricao(String novaDescricao) {
+    if (novaDescricao.isEmpty) {
+      return;
+    }
+
+    descricao = novaDescricao;
+  }
 
   static String generateRandomId({int length = 6}) {
     const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';

@@ -8,17 +8,14 @@ class GetAllTarefasUseCaseImp implements GetAllTarefasUseCase {
       TarefaEntity(
         descricao: "Tarefa 1",
         data: DateTime.now(),
-        realizado: false,
       ),
       TarefaEntity(
         descricao: "Tarefa 2",
         data: DateTime.now(),
-        realizado: false,
       ),
       TarefaEntity(
         descricao: "Tarefa 3",
         data: DateTime.now(),
-        realizado: false,
       ),
     ];
     return tarefas;

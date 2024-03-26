@@ -9,6 +9,10 @@ class AddTarefaUseCaseImp implements AddTarefaUseCase {
 
   @override
   Future<bool> call(TarefaEntity tarefaEntity) async {
+    if (tarefaEntity.descricao.isEmpty) {
+      return false;
+    }
+
     return await _addTarefaRepository(tarefaEntity);
   }
 }
