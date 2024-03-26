@@ -18,6 +18,10 @@ class TarefaEntity {
     realizado = !realizado;
   }
 
+  void alterarFavorito() {
+    favorita = !favorita;
+  }
+
   void alterarDescricao(String novaDescricao) {
     if (novaDescricao.isEmpty) {
       return;

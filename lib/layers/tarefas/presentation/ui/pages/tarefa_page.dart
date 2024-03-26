@@ -4,6 +4,7 @@ import 'package:tarefas_clean_architecture/layers/tarefas/domain/entities/tarefa
 import 'package:tarefas_clean_architecture/layers/tarefas/presentation/controllers/tarefa_controller.dart';
 import 'package:tarefas_clean_architecture/layers/tarefas/presentation/ui/widgets/cabecalho_widget.dart';
 import 'package:tarefas_clean_architecture/layers/tarefas/presentation/ui/widgets/data_widget.dart';
+import 'package:tarefas_clean_architecture/layers/tarefas/presentation/ui/widgets/tarefa_item_widget.dart';
 
 class TarefaPage extends StatefulWidget {
   final int index;
@@ -38,10 +39,17 @@ class _TarefaPageState extends State<TarefaPage> {
     });
   }
 
+  void favoritarTarefa(TarefaEntity tarefa) {
+    setState(() {
+      controller.favoritarTarefa(tarefa);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final tarefasNaoRealizadas =
-        controller.tarefas.where((t) => t.realizado == false).toList();
+    final tarefasNaoRealizadas = controller.tarefas.where((t) {
+      return t.realizado == false;
+    }).toList();
     final tarefasRealizadas =
         controller.tarefas.where((t) => t.realizado == true).toList();
 
@@ -98,40 +106,14 @@ class _TarefaPageState extends State<TarefaPage> {
             itemCount: tarefasNaoRealizadas.length,
             itemBuilder: (context, index) {
               final tarefa = tarefasNaoRealizadas[index];
-              return Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: !tarefa.realizado
-                        ? const Color.fromARGB(255, 37, 36, 35)
-                        : const Color.fromARGB(255, 37, 36, 35),
-                  ),
-                  child: Row(
-                    children: [
-                      IconButton(
-                        onPressed: () => realizarTarefa(tarefa),
-                        icon: const Icon(Icons.circle_outlined),
-                      ),
-                      Expanded(
-                        child: Text(tarefa.descricao),
-                      ),
-                      !tarefa.realizado
-                          ? IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.star_border),
-                              color: tarefa.favorita
-                                  ? Colors.white
-                                  : Colors.grey[700],
-                            )
-                          : Container(),
-                    ],
-                  ),
-                ),
+              return TarefaItemWidget(
+                tarefa: tarefa,
+                onFavoritarTarefa: favoritarTarefa,
+                onRealizarTarefa: realizarTarefa,
               );
             },
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 30),
           Text(
             tarefasRealizadas.isEmpty ? "" : "Concluidas",
             style: const TextStyle(
@@ -145,39 +127,15 @@ class _TarefaPageState extends State<TarefaPage> {
               itemCount: tarefasRealizadas.length,
               itemBuilder: (context, index) {
                 final tarefa = tarefasRealizadas[index];
-                return Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: const Color.fromARGB(255, 37, 36, 35),
-                    ),
-                    child: Row(
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            setState(() {
-                              controller.realizarTarefa(tarefa);
-                            });
-                          },
-                          icon: const Icon(Icons.circle_outlined),
-                        ),
-                        Expanded(
-                          child: Text(tarefa.descricao),
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.star_border),
-                          color:
-                              tarefa.favorita ? Colors.white : Colors.grey[700],
-                        ),
-                      ],
-                    ),
-                  ),
+                return TarefaItemWidget(
+                  tarefa: tarefa,
+                  onFavoritarTarefa: favoritarTarefa,
+                  onRealizarTarefa: realizarTarefa,
                 );
               },
             ),
-          )
+          ),
+          Text(DateTime.now().toString())
         ],
       ),
     );
