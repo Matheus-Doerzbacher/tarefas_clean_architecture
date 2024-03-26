@@ -5,12 +5,14 @@ class TarefaEntity {
   String descricao;
   final DateTime data;
   bool realizado;
+  bool favorita;
 
   TarefaEntity({
     required this.descricao,
     required this.data,
   })  : id = generateRandomId(),
-        realizado = false;
+        realizado = false,
+        favorita = false;
 
   void alterarRealizado() {
     realizado = !realizado;

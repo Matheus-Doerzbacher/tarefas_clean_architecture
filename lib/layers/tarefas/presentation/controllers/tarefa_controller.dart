@@ -1,14 +1,17 @@
 import 'package:tarefas_clean_architecture/layers/tarefas/domain/entities/tarefa_entity.dart';
 import 'package:tarefas_clean_architecture/layers/tarefas/domain/usecases/add_tarefa/add_tarefa_usecase.dart';
 import 'package:tarefas_clean_architecture/layers/tarefas/domain/usecases/get_all_tarefas/get_all_tarefas_usecase.dart';
+import 'package:tarefas_clean_architecture/layers/tarefas/domain/usecases/ralizar_tarefa/realizar_tarefa_usecase.dart';
 
 class TarefaController {
   final GetAllTarefasUseCase _getAllTarefasUseCase;
   final AddTarefaUseCase _addTarefaUseCase;
+  final RealizarTarefaUseCase _realizarTarefaUseCase;
 
   TarefaController(
     this._getAllTarefasUseCase,
     this._addTarefaUseCase,
+    this._realizarTarefaUseCase,
   ) {
     getAllTarefas();
   }
@@ -23,15 +26,7 @@ class TarefaController {
     await _addTarefaUseCase(tarefa);
   }
 
-  List<TarefaEntity> getTarefasNaoRealizadas() {
-    return _getAllTarefasUseCase()
-        .where((tarefa) => tarefa.realizado == false)
-        .toList();
-  }
-
-  List<TarefaEntity> getTarefasRealizadas() {
-    return _getAllTarefasUseCase()
-        .where((tarefa) => tarefa.realizado == true)
-        .toList();
+  realizarTarefa(TarefaEntity tarefa) async {
+    await _realizarTarefaUseCase(tarefa);
   }
 }

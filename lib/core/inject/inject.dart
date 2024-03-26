@@ -3,12 +3,16 @@ import 'package:tarefas_clean_architecture/layers/tarefas/data/datasources/get_a
 import 'package:tarefas_clean_architecture/layers/tarefas/data/datasources/local/get_all_tarefas_local_datasource_imp.dart';
 import 'package:tarefas_clean_architecture/layers/tarefas/data/repositories/add_tarefa_repository_imp.dart';
 import 'package:tarefas_clean_architecture/layers/tarefas/data/repositories/get_all_repository_imp.dart';
+import 'package:tarefas_clean_architecture/layers/tarefas/data/repositories/realizar_tarefa_repository_imp.dart';
 import 'package:tarefas_clean_architecture/layers/tarefas/domain/repositories/add_tarefa_repository.dart';
 import 'package:tarefas_clean_architecture/layers/tarefas/domain/repositories/get_all_tarefas_repository.dart';
+import 'package:tarefas_clean_architecture/layers/tarefas/domain/repositories/realizar_tarefa_repository.dart';
 import 'package:tarefas_clean_architecture/layers/tarefas/domain/usecases/add_tarefa/add_tarefa_usecase.dart';
 import 'package:tarefas_clean_architecture/layers/tarefas/domain/usecases/add_tarefa/add_tarefa_usecase_imp.dart';
 import 'package:tarefas_clean_architecture/layers/tarefas/domain/usecases/get_all_tarefas/get_all_tarefas_usecase.dart';
 import 'package:tarefas_clean_architecture/layers/tarefas/domain/usecases/get_all_tarefas/get_all_tarefas_usecase_imp.dart';
+import 'package:tarefas_clean_architecture/layers/tarefas/domain/usecases/ralizar_tarefa/realizar_tarefa_usecase.dart';
+import 'package:tarefas_clean_architecture/layers/tarefas/domain/usecases/ralizar_tarefa/realizar_tarefa_usecase_imp.dart';
 import 'package:tarefas_clean_architecture/layers/tarefas/presentation/controllers/tarefa_controller.dart';
 
 class Inject {
@@ -35,6 +39,9 @@ class Inject {
     i.registerLazySingleton<AddTarefaRepository>(() {
       return AddTarefaRepositoryImp();
     });
+    i.registerLazySingleton<RealizarTarefaRepository>(() {
+      return RealizarTarefaRepositoryImp();
+    });
 
     /* usecases */
     i.registerLazySingleton<GetAllTarefasUseCase>(() {
@@ -43,10 +50,13 @@ class Inject {
     i.registerLazySingleton<AddTarefaUseCase>(() {
       return AddTarefaUseCaseImp(i());
     });
+    i.registerLazySingleton<RealizarTarefaUseCase>(() {
+      return RealizarTarefaUseCaseImp(i());
+    });
 
     /* controller */
     i.registerLazySingleton<TarefaController>(() {
-      return TarefaController(i(), i());
+      return TarefaController(i(), i(), i());
     });
   }
 }

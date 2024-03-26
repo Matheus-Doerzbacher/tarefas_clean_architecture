@@ -3,7 +3,6 @@ import 'package:get_it/get_it.dart';
 import 'package:tarefas_clean_architecture/layers/tarefas/presentation/controllers/tarefa_controller.dart';
 import 'package:tarefas_clean_architecture/layers/tarefas/presentation/ui/widgets/cabecalho_widget.dart';
 import 'package:tarefas_clean_architecture/layers/tarefas/presentation/ui/widgets/data_widget.dart';
-import 'package:tarefas_clean_architecture/layers/tarefas/presentation/ui/widgets/tarefa_item_widget.dart';
 
 class TarefaPage extends StatefulWidget {
   final int index;
@@ -78,10 +77,39 @@ class _TarefaPageState extends State<TarefaPage> {
           Expanded(
             child: ListView.builder(
               padding: const EdgeInsets.only(top: 10),
-              itemCount: controller.getTarefasNaoRealizadas().length,
+              itemCount: controller.tarefas.length,
               itemBuilder: (context, index) {
                 final tarefa = controller.tarefas[index];
-                return TarefaItemWidget(tarefa: tarefa);
+                return Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: const Color.fromARGB(255, 37, 36, 35),
+                    ),
+                    child: Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            setState(() {
+                              controller.realizarTarefa(tarefa);
+                            });
+                          },
+                          icon: const Icon(Icons.circle_outlined),
+                        ),
+                        Expanded(
+                          child: Text(tarefa.descricao),
+                        ),
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.star_border),
+                          color:
+                              tarefa.favorita ? Colors.white : Colors.grey[700],
+                        ),
+                      ],
+                    ),
+                  ),
+                );
               },
             ),
           )
