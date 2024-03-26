@@ -18,6 +18,7 @@ class GetAllTarefasUseCaseImp implements GetAllTarefasUseCase {
         data: DateTime.now(),
       ),
     ];
+    
     return tarefas;
   }
 }
