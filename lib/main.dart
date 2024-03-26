@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:tarefas_clean_architecture/core/inject/inject.dart';
 import 'package:tarefas_clean_architecture/home_page.dart';
 import 'firebase_options.dart';
@@ -28,6 +29,14 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       title: 'Flutter Demo',
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate
+      ],
+      supportedLocales: const [
+        Locale("pt", "BR"),
+      ],
       theme: ThemeData().copyWith(
         colorScheme: colorSchema,
       ),
