@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:intl/intl.dart';
 import 'package:tarefas_clean_architecture/layers/tarefas/domain/entities/tarefa_entity.dart';
 import 'package:tarefas_clean_architecture/layers/tarefas/presentation/controllers/tarefa_controller.dart';
 import 'package:tarefas_clean_architecture/layers/tarefas/presentation/ui/widgets/cabecalho_widget.dart';
@@ -27,6 +28,9 @@ class _TarefaPageState extends State<TarefaPage> {
   final TarefaController controller = GetIt.I.get<TarefaController>();
   final _novaTarefa = TextEditingController();
 
+  final dataAtual =
+      DateTime.parse(DateFormat("yyyy-MM-dd").format(DateTime.now()));
+
   @override
   void dispose() {
     super.dispose();
@@ -48,10 +52,15 @@ class _TarefaPageState extends State<TarefaPage> {
   @override
   Widget build(BuildContext context) {
     final tarefasNaoRealizadas = controller.tarefas.where((t) {
-      return t.realizado == false;
+      return t.realizado == false &&
+          t.data == (widget.index == 0 ? dataAtual : t.data) &&
+          t.favorita == (widget.index == 2 ? true : t.favorita);
     }).toList();
-    final tarefasRealizadas =
-        controller.tarefas.where((t) => t.realizado == true).toList();
+    final tarefasRealizadas = controller.tarefas.where((t) {
+      return t.realizado == true &&
+          t.data == (widget.index == 0 ? dataAtual : t.data) &&
+          t.favorita == (widget.index == 2 ? true : t.favorita);
+    }).toList();
 
     return Padding(
       padding: const EdgeInsets.all(12.0),
@@ -135,7 +144,6 @@ class _TarefaPageState extends State<TarefaPage> {
               },
             ),
           ),
-          Text(DateTime.now().toString())
         ],
       ),
     );

@@ -31,7 +31,7 @@ class TarefaItemWidget extends StatelessWidget {
               icon: const Icon(Icons.circle_outlined),
             ),
             Expanded(
-              child: Text(tarefa.data.toString()),
+              child: Text(tarefa.descricao),
             ),
             !tarefa.realizado
                 ? IconButton(
