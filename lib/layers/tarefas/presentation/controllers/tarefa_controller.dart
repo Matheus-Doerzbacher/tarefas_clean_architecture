@@ -20,6 +20,18 @@ class TarefaController {
   }
 
   addTarefa(TarefaEntity tarefa) async {
-    await _addTarefaUseCase(tarefa); 
+    await _addTarefaUseCase(tarefa);
+  }
+
+  List<TarefaEntity> getTarefasNaoRealizadas() {
+    return _getAllTarefasUseCase()
+        .where((tarefa) => tarefa.realizado == false)
+        .toList();
+  }
+
+  List<TarefaEntity> getTarefasRealizadas() {
+    return _getAllTarefasUseCase()
+        .where((tarefa) => tarefa.realizado == true)
+        .toList();
   }
 }

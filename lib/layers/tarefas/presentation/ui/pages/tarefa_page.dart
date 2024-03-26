@@ -78,7 +78,7 @@ class _TarefaPageState extends State<TarefaPage> {
           Expanded(
             child: ListView.builder(
               padding: const EdgeInsets.only(top: 10),
-              itemCount: controller.tarefas.length,
+              itemCount: controller.getTarefasNaoRealizadas().length,
               itemBuilder: (context, index) {
                 final tarefa = controller.tarefas[index];
                 return TarefaItemWidget(tarefa: tarefa);
