@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:tarefas_clean_architecture/layers/tarefas/presentation/controllers/tarefa_controller.dart';
 import 'package:tarefas_clean_architecture/layers/tarefas/presentation/ui/widgets/cabecalho_widget.dart';
 import 'package:tarefas_clean_architecture/layers/tarefas/presentation/ui/widgets/data_widget.dart';
+import 'package:tarefas_clean_architecture/layers/tarefas/presentation/ui/widgets/tarefa_item_widget.dart';
 
 class TarefaPage extends StatefulWidget {
   final int index;
@@ -23,6 +24,7 @@ class TarefaPage extends StatefulWidget {
 
 class _TarefaPageState extends State<TarefaPage> {
   final TarefaController controller = GetIt.I.get<TarefaController>();
+  final _novaTarefa = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -47,15 +49,19 @@ class _TarefaPageState extends State<TarefaPage> {
               children: [
                 IconButton(
                   onPressed: () {},
-                  icon: const Icon(
-                    Icons.circle_outlined,
-                    color: Color.fromARGB(255, 85, 164, 240),
+                  icon: Icon(
+                    _novaTarefa.text.isEmpty
+                        ? Icons.circle_outlined
+                        : Icons.add,
+                    color: const Color.fromARGB(255, 85, 164, 240),
                   ),
                 ),
-                const Expanded(
+                Expanded(
                   child: TextField(
+                    onChanged: (_) => setState(() {}),
+                    controller: _novaTarefa,
                     cursorColor: Colors.grey,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: InputBorder.none,
                       labelText: "Adicionar uma tarefa",
                       labelStyle: TextStyle(
@@ -67,6 +73,16 @@ class _TarefaPageState extends State<TarefaPage> {
                   ),
                 ),
               ],
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              padding: const EdgeInsets.only(top: 10),
+              itemCount: controller.tarefas.length,
+              itemBuilder: (context, index) {
+                final tarefa = controller.tarefas[index];
+                return TarefaItemWidget(tarefa: tarefa);
+              },
             ),
           )
         ],
