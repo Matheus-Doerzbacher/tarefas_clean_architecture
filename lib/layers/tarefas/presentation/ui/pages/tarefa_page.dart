@@ -1,28 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tarefas_clean_architecture/layers/tarefas/presentation/controllers/tarefa_controller.dart';
+import 'package:tarefas_clean_architecture/layers/tarefas/presentation/ui/widgets/cabecalho_widget.dart';
 
 class TarefaPage extends StatelessWidget {
-  TarefaPage({super.key});
+  final String index;
+  TarefaPage({super.key, required this.index});
 
   final TarefaController controller = GetIt.I.get<TarefaController>();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: controller.tarefas.length,
-          itemBuilder: (context, index) {
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(controller.tarefas[index].descricao),
-              ],
-            );
-          },
-        ),
+    return const Padding(
+      padding: EdgeInsets.all(12.0),
+      child: Column(
+        children: [
+          CabecalhoWidget(
+            icon: Icons.wb_sunny_outlined,
+            titulo: "Meu Dia",
+          )
+        ],
       ),
     );
   }
