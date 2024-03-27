@@ -33,7 +33,7 @@ class TarefaItemWidget extends StatelessWidget {
             Expanded(
               child: Text(tarefa.descricao),
             ),
-            !tarefa.realizado
+            !tarefa.realizado && !tarefa.compra
                 ? IconButton(
                     onPressed: () => onFavoritarTarefa(tarefa),
                     icon: const Icon(Icons.star_border),

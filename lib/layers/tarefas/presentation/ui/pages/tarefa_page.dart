@@ -75,7 +75,8 @@ class _TarefaPageState extends State<TarefaPage> {
     final tarefasRealizadas = controller.tarefas.where((t) {
       return t.realizado == true &&
           t.data == (widget.index == 0 ? dataAtual : t.data) &&
-          t.favorita == (widget.index == 2 ? true : t.favorita);
+          t.favorita == (widget.index == 2 ? true : t.favorita) &&
+          t.compra == (widget.index == 3 ? true : false);
     }).toList();
 
     return Padding(
