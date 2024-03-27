@@ -20,6 +20,11 @@ class GetAllTarefasLocalDataSourceImp implements GetAllTarefasDataSource {
         descricao: "Tarefa 3",
         data: data,
       ),
+      TarefaEntity(
+        descricao: "Tarefa 4",
+        data: data,
+        compra: true,
+      ),
     ];
 
     return tarefas;

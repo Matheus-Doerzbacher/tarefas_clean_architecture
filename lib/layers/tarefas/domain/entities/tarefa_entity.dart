@@ -6,10 +6,12 @@ class TarefaEntity {
   final DateTime data;
   bool realizado;
   bool favorita;
+  bool compra;
 
   TarefaEntity({
     required this.descricao,
     required this.data,
+    this.compra = false,
   })  : id = generateRandomId(),
         realizado = false,
         favorita = false;

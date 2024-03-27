@@ -26,6 +26,7 @@ class TarefaController {
   }
 
   addTarefa(TarefaEntity tarefa) async {
+    tarefas.add(tarefa);
     await _addTarefaUseCase(tarefa);
   }
 

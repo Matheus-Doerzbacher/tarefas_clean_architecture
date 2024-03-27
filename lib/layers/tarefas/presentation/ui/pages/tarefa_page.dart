@@ -37,6 +37,21 @@ class _TarefaPageState extends State<TarefaPage> {
     _novaTarefa.dispose();
   }
 
+  void adicionarTarefa() {
+    if (_novaTarefa.text.isEmpty) {
+      return;
+    }
+
+    final newTarefa =
+        TarefaEntity(descricao: _novaTarefa.text, data: dataAtual);
+
+    setState(() {
+      controller.addTarefa(newTarefa);
+    });
+
+    _novaTarefa.clear();
+  }
+
   void realizarTarefa(TarefaEntity tarefa) {
     setState(() {
       controller.realizarTarefa(tarefa);
@@ -54,7 +69,8 @@ class _TarefaPageState extends State<TarefaPage> {
     final tarefasNaoRealizadas = controller.tarefas.where((t) {
       return t.realizado == false &&
           t.data == (widget.index == 0 ? dataAtual : t.data) &&
-          t.favorita == (widget.index == 2 ? true : t.favorita);
+          t.favorita == (widget.index == 2 ? true : t.favorita) &&
+          t.compra == (widget.index == 3 ? true : false);
     }).toList();
     final tarefasRealizadas = controller.tarefas.where((t) {
       return t.realizado == true &&
@@ -82,7 +98,7 @@ class _TarefaPageState extends State<TarefaPage> {
             child: Row(
               children: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: adicionarTarefa,
                   icon: Icon(
                     _novaTarefa.text.isEmpty
                         ? Icons.circle_outlined
@@ -92,6 +108,7 @@ class _TarefaPageState extends State<TarefaPage> {
                 ),
                 Expanded(
                   child: TextField(
+                    onSubmitted: (_) => adicionarTarefa(),
                     onChanged: (_) => setState(() {}),
                     controller: _novaTarefa,
                     cursorColor: Colors.grey,
