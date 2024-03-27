@@ -41,15 +41,20 @@ class _TarefaPageState extends State<TarefaPage> {
     if (_novaTarefa.text.isEmpty) {
       return;
     }
-
-    final newTarefa =
-        TarefaEntity(descricao: _novaTarefa.text, data: dataAtual);
-
+    final newTarefa = TarefaEntity(
+        descricao: _novaTarefa.text,
+        data: dataAtual,
+        compra: widget.index == 3 ? true : false);
     setState(() {
       controller.addTarefa(newTarefa);
     });
-
     _novaTarefa.clear();
+  }
+
+  void excluirTarefa(TarefaEntity tarefa) {
+    setState(() {
+      controller.exlcuirTarefa(tarefa);
+    });
   }
 
   void realizarTarefa(TarefaEntity tarefa) {
@@ -137,6 +142,7 @@ class _TarefaPageState extends State<TarefaPage> {
                 tarefa: tarefa,
                 onFavoritarTarefa: favoritarTarefa,
                 onRealizarTarefa: realizarTarefa,
+                onExcluirTarefa: excluirTarefa,
               );
             },
           ),
@@ -158,6 +164,7 @@ class _TarefaPageState extends State<TarefaPage> {
                   tarefa: tarefa,
                   onFavoritarTarefa: favoritarTarefa,
                   onRealizarTarefa: realizarTarefa,
+                  onExcluirTarefa: excluirTarefa,
                 );
               },
             ),
