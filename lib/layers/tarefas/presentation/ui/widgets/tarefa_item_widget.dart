@@ -43,7 +43,7 @@ class TarefaItemWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(5),
             color: !tarefa.realizado
                 ? const Color.fromARGB(255, 37, 36, 35)
-                : const Color.fromARGB(255, 29, 27, 27),
+                : const Color.fromARGB(255, 25, 23, 23),
           ),
           child: Row(
             children: [
@@ -52,7 +52,14 @@ class TarefaItemWidget extends StatelessWidget {
                 icon: const Icon(Icons.circle_outlined),
               ),
               Expanded(
-                child: Text(tarefa.descricao),
+                child: Text(
+                  tarefa.descricao,
+                  style: TextStyle(
+                    decoration: tarefa.realizado
+                        ? TextDecoration.lineThrough
+                        : TextDecoration.none,
+                  ),
+                ),
               ),
               !tarefa.realizado && !tarefa.compra
                   ? IconButton(

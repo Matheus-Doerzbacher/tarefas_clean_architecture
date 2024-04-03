@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 import 'package:tarefas_clean_architecture/layers/tarefas/domain/entities/tarefa_entity.dart';
@@ -87,7 +88,6 @@ class _TarefaPageState extends State<TarefaPage> {
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CabecalhoWidget(
             iconeColor: widget.iconColor,
@@ -132,41 +132,52 @@ class _TarefaPageState extends State<TarefaPage> {
               ],
             ),
           ),
-          ListView.builder(
-            shrinkWrap: true,
-            padding: const EdgeInsets.only(top: 10),
-            itemCount: tarefasNaoRealizadas.length,
-            itemBuilder: (context, index) {
-              final tarefa = tarefasNaoRealizadas[index];
-              return TarefaItemWidget(
-                tarefa: tarefa,
-                onFavoritarTarefa: favoritarTarefa,
-                onRealizarTarefa: realizarTarefa,
-                onExcluirTarefa: excluirTarefa,
-              );
-            },
-          ),
-          const SizedBox(height: 30),
-          Text(
-            tarefasRealizadas.isEmpty ? "" : "Concluidas",
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          const SizedBox(height: 10),
           Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.only(top: 10),
-              itemCount: tarefasRealizadas.length,
-              itemBuilder: (context, index) {
-                final tarefa = tarefasRealizadas[index];
-                return TarefaItemWidget(
-                  tarefa: tarefa,
-                  onFavoritarTarefa: favoritarTarefa,
-                  onRealizarTarefa: realizarTarefa,
-                  onExcluirTarefa: excluirTarefa,
-                );
-              },
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: const EdgeInsets.only(top: 10),
+                    itemCount: tarefasNaoRealizadas.length,
+                    itemBuilder: (context, index) {
+                      final tarefa = tarefasNaoRealizadas[index];
+                      return TarefaItemWidget(
+                        tarefa: tarefa,
+                        onFavoritarTarefa: favoritarTarefa,
+                        onRealizarTarefa: realizarTarefa,
+                        onExcluirTarefa: excluirTarefa,
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 30),
+                  Text(
+                    tarefasRealizadas.isEmpty ? "" : "Concluidas",
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: const EdgeInsets.only(top: 10),
+                    itemCount: tarefasRealizadas.length,
+                    itemBuilder: (context, index) {
+                      final tarefa = tarefasRealizadas[index];
+                      return TarefaItemWidget(
+                        tarefa: tarefa,
+                        onFavoritarTarefa: favoritarTarefa,
+                        onRealizarTarefa: realizarTarefa,
+                        onExcluirTarefa: excluirTarefa,
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ],
